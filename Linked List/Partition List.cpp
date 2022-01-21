@@ -109,3 +109,32 @@ public:
 Time Complexity: O(n)
 Space Complexity: O(n)
 */
+
+// Single pass with constant space
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode *lessThanX = new ListNode(0);
+        ListNode *greaterThanOrEqualToX = new ListNode(0);
+        ListNode *ptr = head, *lessPtr = lessThanX, *greaterPtr = greaterThanOrEqualToX;
+        while (ptr) {
+            if (ptr -> val < x) {
+                lessPtr -> next = ptr;
+                lessPtr = lessPtr -> next;
+            }
+            else {
+                greaterPtr -> next = ptr;
+                greaterPtr = greaterPtr -> next;
+            }
+            ptr = ptr -> next;
+        }
+        greaterPtr -> next = NULL;
+        lessPtr -> next = greaterThanOrEqualToX -> next;
+        return lessThanX -> next;
+    }
+};
+
+/*
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
