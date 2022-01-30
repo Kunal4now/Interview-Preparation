@@ -1,3 +1,4 @@
+// Recursive Traversal
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -28,3 +29,34 @@ public:
         return nodes;
     }
 };
+
+// Iterative Traversal
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> st;
+        TreeNode *node = root;
+        vector<int> traversal;
+        while (true) {
+            if (node != NULL) {
+                st.push(node);
+                node = node -> left;
+            }
+            else {
+                if (st.empty()) {
+                    break;
+                }
+                node = st.top();
+                st.pop();
+                traversal.push_back(node -> val);
+                node = node -> right;
+            }
+        }
+        return traversal;
+    }
+};
+
+/*
+Time Complexity: O(N)
+Space Complexity: O(N)
+*/
