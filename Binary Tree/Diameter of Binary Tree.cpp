@@ -39,3 +39,35 @@ public:
 Time Complexity: O(N ^ 2)
 Space Complexity: O(N ^ 2)
 */
+
+class Solution {
+public:
+    int maxDiameter = 0;
+    int findHeight(TreeNode *root) {
+        if (root == NULL) {
+            return 0;
+        }
+        
+        int leftHeight = findHeight(root -> left);
+        int rightHeight = findHeight(root -> right);
+        
+        maxDiameter = max(maxDiameter, leftHeight + rightHeight);
+        
+        return 1 + max(leftHeight, rightHeight);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        findHeight(root);
+        return maxDiameter;
+    }
+};
+
+/*
+APPROACH:
+=> Whenever we find the height of a binary tree, at the current node we will have the height of its left subtree and height of its right subtree.
+=> So we don't need to find height from every node.
+*/
+
+/*
+Time Complexity: O(N)
+Space Complexity: O(N)
+*/
