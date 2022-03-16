@@ -31,3 +31,33 @@ public:
 Time Complexity: O(NlogN)
 Spcae Complexity: O(N)
 */
+
+class Solution {
+public:
+    void inorder(TreeNode *root, int &cnt, int &ans, int &k) {
+        if (root == NULL) {
+            return;
+        }
+        inorder(root -> left, cnt, ans, k);
+        if (cnt == k - 1) {
+            ans = root -> val;
+        }
+        cnt++;
+        inorder(root -> right, cnt, ans, k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        int ans = 0, cnt = 0;
+        inorder(root, cnt, ans, k);
+        return ans;
+    }
+};
+
+/*
+TIme Complexity: O(N)
+Space Complexity: O(N)
+*/
+
+/*
+IMPORTANT:
+=> Inorder traversal of a BST always gives nodes in sorted order
+*/
