@@ -54,3 +54,41 @@ Space Complexity: O(N)
  * int param_1 = obj->next();
  * bool param_2 = obj->hasNext();
  */
+
+
+class BSTIterator {
+    stack<TreeNode*> nodes;
+    void pushAll(TreeNode *cur) {
+        while (cur != NULL) {
+            nodes.push(cur);
+            cur = cur -> left;
+        }
+        return;
+    }
+public:
+    BSTIterator(TreeNode* root) {
+        pushAll(root);
+    }
+    
+    int next() {
+        auto cur = nodes.top(); nodes.pop();
+        pushAll(cur -> right);
+        return cur -> val;
+    }
+    
+    bool hasNext() {
+        return !nodes.empty();
+    }
+};
+
+/*
+APPROACH:
+=> Just do an iterative inorder traversal till you get the next node
+=> So in this case we will have at max H nodes in our stack
+=> And since there are about N calls the time complexity would come out to be O(1)
+*/
+
+/*
+Time Complexity: O(1)
+Space Complexity: O(H)
+*/
