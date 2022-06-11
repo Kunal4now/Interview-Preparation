@@ -7,8 +7,6 @@ vector<Interval> Solution::merge(vector<Interval> &a) {
     
     int mn = a[0].start, mx = a[0].end;
     
-    bool unmerged = false;
-    
     vector<Interval> newInterval;
     for (int i = 1; i < n; i++) {
         if (a[i].start <= mx) {
