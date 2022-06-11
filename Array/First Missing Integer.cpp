@@ -1,0 +1,52 @@
+int Solution::firstMissingPositive(vector<int> &a) {
+    int n = a.size();
+    for (int i = 0; i < n; i++) {
+        if (a[i] > 0 and a[i] <= n) {
+            int pos = a[i] - 1;
+            if (a[pos] != a[i]) {
+                swap(a[i], a[pos]);
+                i--;
+            }
+        }
+    }
+    
+    for (int i = 0; i < n; i++) {
+        if (a[i] != i + 1) {
+            return i + 1;
+        }
+    }
+    
+    return n + 1;
+}
+
+/*
+APPROACH:
+Note: numbers A[i]<=0 and A[i]>N ( N being the size of the array ) is not important to us since the missing positive integer will be in the range [1, N+1].
+
+The answer will be N+1 only if all of the elements of the array are exact one occurrence of [1, N].
+
+Creating buckets would have been an easy solution if using extra space was allowed.
+
+An array of size N initialized to 0 would have been created.
+
+For every value A[i] which lies in the range [1, N], its count in the array would have been incremented.
+
+Finally, traversing the array would help to find the first array position with value 0 and that will be our answer.
+
+However, usage of buckets is not allowed, can we use the existing array as bucket somehow?
+
+Now, since additional space is not allowed either, the given array itself needs to be used to track it.
+
+It may be helpful to use the fact that the size of the set we are looking to track is [1, N]
+
+which happens to be the same size as the size of the array.
+
+This means we can use the array to track these elements.
+
+We traverse the array and if A[i] is in [1,N] range, we try to put in the index of same value in the array.
+*/
+
+/*
+Time Complexity: O(N)
+Space Complexity: O(1)
+*/
