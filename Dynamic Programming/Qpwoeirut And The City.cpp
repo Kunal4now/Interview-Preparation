@@ -64,3 +64,10 @@ int main() {
 		cout << helper(1, n, a).second << "\n";
 	}
 }
+
+/*
+APPROACH:
+=> At every index we have two options, either we can make that building cool or dont make it cool
+=> The function will return a pair which contains the no. of buildings made cool and the minimum floors to add
+=> we will return the ans that we get from taking or not taking that building accordingly
+*/
