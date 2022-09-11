@@ -34,3 +34,48 @@ APPROACH:
 Time Complexity: O(N * M)
 Space Complexity: O(N * M) + O(N + M)
 */
+
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int m) {
+        // How many subarrays are possible with sum <= target
+        // no. of possible subarrays should be less than equal to m
+        auto good = [&](int target) {
+            int cnt = 1;
+            int sum = 0;
+            for (int i = 0; i < nums.size(); i++) {
+                if (nums[i] > target) {
+                    return false;
+                }
+                sum += nums[i];
+                if (sum > target) {
+                    cnt++;
+                    sum = nums[i];
+                }
+            }
+            
+            return cnt <= m;
+        };
+        
+        int l = 0;
+        int r = accumulate(nums.begin(), nums.end(), 0);
+        int ans = 0;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (good(mid)) {
+                ans = mid;
+                r = mid;
+            }
+            else {
+                l = mid + 1;
+            }
+        }
+        
+        return l;
+    }
+};
+
+/*
+Time Complexity: O(Sum * Log(Sum))
+Space Complexity: O(1)
+*/
