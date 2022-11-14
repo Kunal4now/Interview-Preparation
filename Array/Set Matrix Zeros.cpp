@@ -115,3 +115,56 @@ APPROACH:
 Time Complexity: O(N * M)
 Space Complexity: O(1)
 */
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        bool isZeroCol = false, isZeroRow = false;
+        
+        for (int i = 0; i < n; i++) {
+            isZeroCol |= matrix[i][0] == 0;
+        }
+        
+        for (int j = 0; j < m; j++) {
+            isZeroRow |= matrix[0][j] == 0;
+        }
+        
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0, matrix[0][j] = 0;
+                }
+            }
+        }
+        
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (!matrix[i][0] or !matrix[0][j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        for (int i = 0; i < n and isZeroCol; i++) {
+            matrix[i][0] = 0;
+        }
+        
+        for (int j = 0; j < m and isZeroRow; j++) {
+            matrix[0][j] = 0;
+        }
+        
+        return;
+     }
+};
+
+/*
+APPROACH:
+=> Use first row and col as the storage to mark the zeroes
+=> mark the first row and col in the last
+*/
+
+/*
+Time Complexity: O(N * M)
+Space Complexity: O(1)
+*/
