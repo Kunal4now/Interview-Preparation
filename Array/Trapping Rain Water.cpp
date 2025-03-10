@@ -35,30 +35,34 @@ SPACE COMPLEXITY: O(N)
 
 class Solution {
 public:
-    int trap(vector<int>& a) {
-        int n = a.size();
+    int trap(vector<int>& height) {
+        int n = height.size();
 
-        int left = 0, leftMax = 0, right = n - 1, rightMax = 0;
-        int water = 0;
-        while (left <= right) {
-            leftMax = max(leftMax, a[left]);
-            rightMax = max(rightMax, a[right]);
-            water += max(min(leftMax, rightMax) - a[left], 0);
-            water += max(min(leftMax, rightMax) - a[right], 0);
-            if (leftMax < rightMax) left++;
-            else right--;
+        int leftMax = height[0], rightMax = height[n - 1];
+        int left = 0, right = n - 1;
+
+        int ans = 0;
+        while (left < right) {
+            if (height[left] <= height[right]) {
+                leftMax = max(leftMax, height[left]);
+                ans += max(0, leftMax - height[left]);
+                left++;
+            } else {
+                rightMax = max(rightMax, height[right]);
+                ans += max(0, rightMax - height[right]);
+                right--;
+            }
         }
 
-        return water;
+        return ans;
     }
-};      
+};    
 
 /*
 APPROACH:
-Since we are calculating the total water trapped for each index, we were previously maintaining the prefix and suffix max arrays, since these can be calculated on
-the fly we can adapt a two pointer approach that would calculate leftMax and rightMax in one go, and the logic to move the left and right pointers would be
-if leftMax is smaller than rightMax, since the trapped water is dictated using min(leftMax, rightMax) we'll need to maximize the smaller one so we will be moving
-the smaller max pointer.
+To optimize the prefix sum approach we can note one observation if (height[left] <= height[right]) this gives us assurance that we do not
+need to check the rightMax because it is already smaller than height[right] so we can just get away by comparing it with the leftMax
+we need to do the same thing with the rightMax
 
 TIME COMPLEXITY: O(N)
 SPACE COMPLEXITY: O(1)
