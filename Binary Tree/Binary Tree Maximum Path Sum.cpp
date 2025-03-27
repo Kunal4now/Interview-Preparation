@@ -34,5 +34,14 @@ public:
 };
 
 /*
+APPROACH:
+This is just the extension of the problem max path of a binary tree
+1. We try to calculate the max path of a binary tree
+2. We get letPath and rightpath in the process
+3. Our answer is the node + leftSum + rightSum
+4. Because we need to check sum from every node
+*/
+
+/*
 Reference: https://www.youtube.com/watch?v=WszrfSwMz58&list=PLgUwDviBIf0q8Hkd7bK2Bpryj2xVJk8Vk&index=18&t=928s&ab_channel=takeUforward
 */
